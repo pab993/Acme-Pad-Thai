@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!-- 
+ * tiles_es.xml
+ *
+ * Copyright (C) 2016 Universidad de Sevilla
+ * 
+ * The use of this project is hereby constrained to the conditions of the 
+ * TDG Licence, a copy of which you may download from 
+ * http://www.tdg-seville.info/License.html
+ -->
+
+<!DOCTYPE tiles-definitions PUBLIC
+       "-//Apache Software Foundation//DTD Tiles Configuration 2.0//EN"
+       "http://tiles.apache.org/dtds/tiles-config_2_0.dtd">
+      
+<tiles-definitions>
+
+	<definition name="recipe/list" extends="master.page">	
+		<put-attribute name="title" value="Lista de recetas" />
+		<put-attribute name="body" value="/views/recipe/list.jsp" />
+	</definition>
+	
+	<definition name="recipe/picturesList" extends="master.page">	
+		<put-attribute name="title" value="Lista de imágenes de la receta" />
+		<put-attribute name="body" value="/views/recipe/picturesList.jsp" />
+	</definition>
+	
+	<definition name="recipe/picturesEdit" extends="master.page">	
+		<put-attribute name="title" value="Editar imagen" />
+		<put-attribute name="body" value="/views/recipe/picturesEdit.jsp" />
+	</definition>
+	
+	<definition name="recipe/display" extends="master.page">	
+		<put-attribute name="title" value="Lista de recetas participantes" />
+		<put-attribute name="body" value="/views/recipe/display.jsp" />
+	</definition>
+	
+	<definition name="recipe/edit" extends="master.page">	
+		<put-attribute name="title" value="Editar Receta" />
+		<put-attribute name="body" value="/views/recipe/edit.jsp" />
+	</definition>
+	
+	<definition name="recipe/lastUpdatesList" extends="master.page">	
+		<put-attribute name="title" value="Últimas novedades" />
+		<put-attribute name="body" value="/views/recipe/lastUpdatesList.jsp" />
+	</definition>
+	
+	<definition name="recipe/adminList" extends="master.page">	
+		<put-attribute name="title" value="Lista de recetas" />
+		<put-attribute name="body" value="/views/recipe/adminList.jsp" />
+	</definition>
+	
+</tiles-definitions>

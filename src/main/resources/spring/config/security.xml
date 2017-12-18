@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- 
+ * security.xml
+ *
+ * Copyright (C) 2016 Universidad de Sevilla
+ * 
+ * The use of this project is hereby constrained to the conditions of the 
+ * TDG Licence, a copy of which you may download from 
+ * http://www.tdg-seville.info/License.html
+ -->
+
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:security="http://www.springframework.org/schema/security"	
+	xsi:schemaLocation="
+		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.0.xsd		
+        http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security-3.2.xsd
+    ">
+
+	<!-- Security infrastructure -->
+
+	<bean id="loginService" class="security.LoginService" />
+
+	<bean id="passwordEncoder"
+		class="org.springframework.security.authentication.encoding.Md5PasswordEncoder" />
+
+	<!-- Access control -->
+
+	<security:http auto-config="true" use-expressions="true">
+		<security:intercept-url pattern="/" access="permitAll" /> 
+
+		<security:intercept-url pattern="/favicon.ico" access="permitAll" /> 
+		<security:intercept-url pattern="/images/**" access="permitAll" /> 
+		<security:intercept-url pattern="/scripts/**" access="permitAll" /> 
+		<security:intercept-url pattern="/styles/**" access="permitAll" /> 
+
+		<security:intercept-url pattern="/views/misc/index.jsp" access="permitAll" /> 
+
+		<security:intercept-url pattern="/security/login.do" access="permitAll" /> 
+		<security:intercept-url pattern="/security/loginFailure.do" access="permitAll" /> 
+
+		<security:intercept-url pattern="/welcome/index.do" access="permitAll" /> 
+
+		<security:intercept-url pattern="/administrator/action-1.do" access="hasRole('ADMIN')" /> 
+		<security:intercept-url pattern="/administrator/action-2.do" access="hasRole('ADMIN')" />
+		<security:intercept-url pattern="/administrator/display.do" access="hasRole('ADMIN')" /> 
+
+		<security:intercept-url pattern="/customer/action-1.do" access="hasRole('CUSTOMER')" /> 
+		<security:intercept-url pattern="/customer/action-2.do" access="hasRole('CUSTOMER')" /> 
+
+		<security:intercept-url pattern="/profile/action-1.do" access="isAuthenticated()" /> 
+		<security:intercept-url pattern="/profile/action-2.do" access="isAuthenticated()" /> 
+		<security:intercept-url pattern="/profile/action-3.do" access="isAuthenticated()" />
+		<security:intercept-url pattern="/customer/list.do" access="isAuthenticated()" />
+		<security:intercept-url pattern="/customer/editFollow.do" access="isAuthenticated()" />
+		<security:intercept-url pattern="/customer/editUnfollow.do" access="isAuthenticated()" />
+		<security:intercept-url pattern="/recipe/lastUpdatesList.do" access="isAuthenticated()" />
+		
+		<security:intercept-url pattern="/user/list.do" access="permitAll" />
+		<security:intercept-url pattern="/user/display.do" access="permitAll" /> 
+		<security:intercept-url pattern="/recipe/list.do" access="isAuthenticated()" />
+		<security:intercept-url pattern="/sponsor/register.do" access="permitAll" />
+		<security:intercept-url pattern="/userRecipes/list.do" access="permitAll" />
+		<security:intercept-url pattern="/recipe/picturesList.do" access="permitAll" />
+		<security:intercept-url pattern="/recipe/search.do" access="permitAll" />
+		<security:intercept-url pattern="/recipe/steps/list.do" access="permitAll" />
+		<security:intercept-url pattern="/recipe/steps/edit.do" access="hasRole('USER')" />
+		<security:intercept-url pattern="/recipe/steps/create.do" access="hasRole('USER')" />
+		<security:intercept-url pattern="/user/search.do" access="permitAll" />
+		<security:intercept-url pattern="/comment/list.do" access="permitAll" />
+		<security:intercept-url pattern="/comment/create.do" access="isAuthenticated()" />
+		<security:intercept-url pattern="/comment/edit.do" access="isAuthenticated()" />
+		<security:intercept-url pattern="/register/**" access="permitAll" />
+		
+		<security:intercept-url pattern="/contest/list.do" access="permitAll" />
+		<security:intercept-url pattern="/contest/register.do" access="permitAll" />
+		<security:intercept-url pattern="/recipe/display.do" access="permitAll" />
+		<security:intercept-url pattern="/user/user/edit.do" access="hasRole('USER')" />
+		<security:intercept-url pattern="/user/edit.do" access="hasRole('USER')" />
+		<security:intercept-url pattern="/user/folders/list.do" access="hasRole('USER')" />
+		<security:intercept-url pattern="/user/recipes/list.do" access="hasRole('USER')" />
+		<security:intercept-url pattern="/user/recipes/edit.do" access="hasRole('USER')" />
+		<security:intercept-url pattern="/user/recipes/create.do" access="hasRole('USER')" />
+		<security:intercept-url pattern="/customer/recipe/like.do" access="isAuthenticated()" />
+		<security:intercept-url pattern="/likeDislike/edit.do" access="isAuthenticated()" />
+		<security:intercept-url pattern="/user/ingredients/list.do" access="permitAll" />
+		<security:intercept-url pattern="/user/ingredients/add.do" access="hasRole('USER')" />
+		<security:intercept-url pattern="/user/ingredients/remove.do" access="hasRole('USER')" />
+		<security:intercept-url pattern="/user/ingredients/watch/list.do" access="permitAll" />
+		<security:intercept-url pattern="/user/unitSystem/edit.do" access="hasRole('USER')" />
+		<security:intercept-url pattern="/user/unitSystem/list.do" access="permitAll" />
+		
+		<security:intercept-url pattern="/nutritionist/**" access="hasRole('NUTRITIONIST')" />
+		<security:intercept-url pattern="/socialIdentity/**" access="isAuthenticated()" />
+		<security:intercept-url pattern="/property/**" access="hasRole('NUTRITIONIST')" />
+		<security:intercept-url pattern="/contest/administrator/**" access="hasRole('ADMIN')" />
+		<security:intercept-url pattern="/recipe/watch/list.do" access="permitAll" />
+		<security:intercept-url pattern="/qualification/edit.do" access="hasRole('USER')" />
+		<security:intercept-url pattern="/administrator/winnerProcess.do" access="hasRole('ADMIN')" />
+		<security:intercept-url pattern="/administrator/selectWinners.do" access="hasRole('ADMIN')" />
+		<security:intercept-url pattern="/administrator/calculateWinners.do" access="hasRole('ADMIN')" />
+		<security:intercept-url pattern="/recipe/adminList.do" access="hasRole('ADMIN')" />
+		<security:intercept-url pattern="/contestRecipe/**" access="permitAll" />
+		
+		<security:intercept-url pattern="/folder/message/**" access="isAuthenticated()" />
+		<security:intercept-url pattern="/folders/message/**" access="isAuthenticated()" />
+		<security:intercept-url pattern="/message/**" access="isAuthenticated()" />
+		<security:intercept-url pattern="/endorser/**" access="hasRole('NUTRITIONIST')" />
+		<security:intercept-url pattern="/curriculum/**" access="hasRole('NUTRITIONIST')" />
+		<security:intercept-url pattern="/category/administrator/**" access="hasRole('ADMIN')" />
+		<security:intercept-url pattern="/configurationSystem/administrator/**" access="hasRole('ADMIN')" />
+		<security:intercept-url pattern="/folder/administrator/**" access="hasRole('ADMIN')" />
+		<security:intercept-url pattern="/folder/user/**" access="hasRole('USER')" />
+		<security:intercept-url pattern="/folder/nutritionist/**" access="hasRole('NUTRITIONIST')" />
+		<security:intercept-url pattern="/bartols/recipe/list.do" access="permitAll" />
+		<security:intercept-url pattern="/bartols/recipe/edit.do" access="hasRole('NUTRITIONIST')" />
+		<security:intercept-url pattern="/bartols/recipe/create.do" access="hasRole('NUTRITIONIST')" />
+		<security:intercept-url pattern="/bartols/recipe/listNutri.do" access="hasRole('NUTRITIONIST')" />
+	
+		<security:intercept-url pattern="/**" access="hasRole('NONE')" />
+
+		<security:form-login 
+			login-page="/security/login.do"
+			password-parameter="password" 
+			username-parameter="username"
+			authentication-failure-url="/security/loginFailure.do" />
+
+		<security:logout 
+			logout-success-url="/" 
+			invalidate-session="true" />
+	</security:http>
+
+</beans>
